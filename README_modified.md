@@ -17,7 +17,7 @@ We hereby propose Bio-Switch, which comprehensively collects and analyzes human 
 
 * A central controller is deployed in the room to process the continuous data stream sent from the above sensors and change the light condition through DALI controller's REST APIs.
 
-![](document/design.png)
+![](report/4)
 
 ### Features and Implementation
 
@@ -90,7 +90,7 @@ Bio-Switch is able to change the light condition according to the action of peop
 
 #### Device/Library
 
-Infrared camera & OpenCV
+Infrared camera & OpenCV 
 
 #### Implementation
 
@@ -113,9 +113,10 @@ Color camera
 #### Implementation
 * We detect the actual color in RGB space with the camera of the laptop. We catch the image on real time with the laptop camera, split it into R,G and B channels, calculate the average value in these channels, and convert it into CIE color space.
 
-![](document/formula.png)
+![](report/formula.png)
 
-![](document/cie2.png)(https://en.wikipedia.org/wiki/CIE_1931_color_space)
+![](report/cie2.png)
+(https://en.wikipedia.org/wiki/CIE_1931_color_space)
 
 * We obtain the last record of light conditions setting through the API ```/v1/dali-data```.
 
@@ -124,21 +125,3 @@ Color camera
 * The server sends command to modify the light color according to the result we obtain via the REST APIs.
 
 * This feature could be considered as a further adjustment for light condition setting in Feature 2.
-
-## Code Structure
-
-* The 'server' directory contains the codes of Bio-Switch server. 'central-server.py' contains the main function of the server, dealing with the requests on real time. 'regression_tree.py' describes the model of regression tree. 'train_data' directory contains the parameters of the regression tree.
-
-* 'thermal-image-collector.py' collects thermal images from the API.
-
-* 'human-existance.py' describes how Bio-Switch get the information of whether there is someone in the room or not with infrared camera and sends result to server.
-
-* 'DemoApp' describes an Android project collecting data from Moodmetric ring and sends MM value to server.
-
-* 'face-emotion.py' describes how camera on laptop collects emotion type from the face of a person and sends emotion type to server.
-
-* 'speech-detection.py' transfers voice command of the user to text and sends command to server.
-
-* 'action-detection.py' describes how Bio-Switch get the information of the action of people in the room with infrared camera and sends result to server.
-
-* 'environment-light.py' describes how Bio-Switch fine-tunes the color of the light according to the environmental light color.
